@@ -8,13 +8,14 @@ import poc_ddd_customer.manager.domain.CustomerId;
 import poc_ddd_customer.manager.domain.CustomerRepository;
 import poc_ddd_customer.manager.shared.application.UseCase;
 import poc_ddd_customer.manager.shared.domain.DomainEvent;
+import poc_ddd_customer.manager.shared.infraestructure.EventPublisher;
 
 @Service
 @RequiredArgsConstructor
 public class CreateCustomerUseCase implements UseCase<CreateCustomerUseCase.Input, Void> {
 
     private final CustomerRepository repository;
-    private final SendMailToCustomerUseCase sendMailToCustomerUseCase;
+    private final EventPublisher publisher;
 
     @Override
     public Void execute(Input input) {
@@ -28,8 +29,10 @@ public class CreateCustomerUseCase implements UseCase<CreateCustomerUseCase.Inpu
 
         var events =  customer.getDomainEvents();
 
+
+
         events.stream()
-                .forEach(e -> sendMailToCustomerUseCase.execute(e.event()));
+                .forEach(publisher::publish);
 
         return Void.TYPE.cast(null);
     }
