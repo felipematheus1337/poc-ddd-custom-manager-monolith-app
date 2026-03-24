@@ -1,5 +1,6 @@
 package poc_ddd_customer.manager.domain;
 
+import poc_ddd_customer.manager.domain.exception.DomainException;
 import poc_ddd_customer.manager.shared.domain.AggregateRoot;
 
 import java.util.ArrayList;
@@ -19,8 +20,19 @@ public class Customer extends AggregateRoot<CustomerId> {
     }
 
    public void addProduct(CustomerProduct product) {
+        validateProductDuplicateSku(product);
+        this.registerEvent(new CustomerCreateEvent(this));
         this.products.add(product);
    }
+
+    private void validateProductDuplicateSku(CustomerProduct product) {
+        var count = this.products.stream()
+                .filter(p -> p.getSku().equals(product.getSku()))
+                .count();
+
+        if (count > 0) throw new DomainException("Sku already exists.");
+
+    }
 
     public String getName() {
         return name;
@@ -33,4 +45,5 @@ public class Customer extends AggregateRoot<CustomerId> {
     public List<CustomerProduct> getProducts() {
         return products;
     }
+
 }
