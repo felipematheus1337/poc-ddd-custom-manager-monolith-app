@@ -79,4 +79,4 @@ mvn spring-boot:run
 
 ## Autor
 
-Felipe Matheus D’avila Pereira
+Felipe Matheus
