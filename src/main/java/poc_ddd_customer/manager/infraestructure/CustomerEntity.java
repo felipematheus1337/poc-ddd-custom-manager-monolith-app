@@ -1,6 +1,7 @@
 package poc_ddd_customer.manager.infraestructure;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,10 @@ public class CustomerEntity {
     @Column(unique = true)
     @CPF
     private String cpf;
+
+    @Column(unique = true)
+    @Email
+    private String mail;
 
     @OneToMany(mappedBy = "customer")
     private List<CustomerProductEntity> products;
