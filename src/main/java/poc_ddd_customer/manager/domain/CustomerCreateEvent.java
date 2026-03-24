@@ -4,10 +4,12 @@ import poc_ddd_customer.manager.shared.domain.DomainEvent;
 
 public class CustomerCreateEvent implements DomainEvent {
 
-    private final Customer customer;
+    private final CustomerProduct product;
+    private final String email;
 
-    public CustomerCreateEvent(Customer customer) {
-        this.customer = customer;
+    public CustomerCreateEvent(CustomerProduct product, String mail) {
+        this.product = product;
+        this.email = mail;
     }
 
     @Override
@@ -15,7 +17,11 @@ public class CustomerCreateEvent implements DomainEvent {
         return this;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public CustomerProduct getProduct() {
+        return product;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

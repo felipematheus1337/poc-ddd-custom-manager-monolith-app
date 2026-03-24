@@ -10,18 +10,20 @@ public class Customer extends AggregateRoot<CustomerId> {
 
     private String name;
     private String cpf;
+    private String mail;
     private final List<CustomerProduct> products;
 
-    public Customer(CustomerId id, String name, String cpf) {
+    public Customer(CustomerId id, String name, String cpf, String mail) {
         super(id);
         this.name = name;
         this.cpf = cpf;
+        this.mail = mail;
         this.products = new ArrayList<>();
     }
 
    public void addProduct(CustomerProduct product) {
         validateProductDuplicateSku(product);
-        this.registerEvent(new CustomerCreateEvent(this));
+        this.registerEvent(new CustomerCreateEvent(product, this.mail));
         this.products.add(product);
    }
 
@@ -32,6 +34,10 @@ public class Customer extends AggregateRoot<CustomerId> {
 
         if (count > 0) throw new DomainException("Sku already exists.");
 
+    }
+
+    public String getMail() {
+        return mail;
     }
 
     public String getName() {

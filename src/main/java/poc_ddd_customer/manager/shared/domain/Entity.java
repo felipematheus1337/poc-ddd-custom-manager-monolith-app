@@ -10,6 +10,10 @@ public abstract class Entity<ID> {
        this.id = Objects.requireNonNull(id, "ID cannot be null");
    }
 
+    public ID getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
