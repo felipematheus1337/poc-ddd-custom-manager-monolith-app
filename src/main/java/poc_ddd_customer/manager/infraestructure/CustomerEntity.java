@@ -31,5 +31,9 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customer")
     private List<CustomerProductEntity> products;
 
-
+    public CustomerEntity(String name, String cpf, List<CustomerProductEntity> products) {
+        this.name = name;
+        this.cpf = cpf;
+        this.products = products;
+    }
 }

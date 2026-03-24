@@ -34,4 +34,10 @@ public class CustomerProductEntity {
     @JoinColumn(name = "customer")
     private CustomerEntity customer;
 
+    public CustomerProductEntity(String name, String sku, BigDecimal value, Integer quantity) {
+        this.name = name;
+        this.sku = sku;
+        this.value = value;
+        this.quantity = quantity;
+    }
 }
